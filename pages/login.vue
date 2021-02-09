@@ -33,7 +33,6 @@
         <nuxt-link class="ma-0 forget-password" to="/auth/forgetPassword"
           >Forget Password?</nuxt-link
         >
-        >
       </div>
       <v-btn color="primary" large type="submit" block>Login</v-btn>
     </v-form>
