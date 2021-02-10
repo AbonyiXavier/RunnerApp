@@ -1,7 +1,8 @@
 <template>
+  <!-- eslint-disable -->
   <v-app>
     <v-main style="height: 100vh">
-      <v-container class="fill-height pa-0" fluid>
+      <v-container class="fill-height py-0" fluid>
         <v-row class="fill-height">
           <v-col>
             <img
@@ -14,13 +15,18 @@
             </v-row>
           </v-col>
           <v-col
-            class="hero-image d-flex justify-center align-center"
+            class="hero-image d-none d-md-block"
             :style="`background-image: url(${bg})`"
           >
-            <h2
-              class="text-h1 white--text font-weight-medium"
-              v-html="content"
-            ></h2>
+            <div
+              class="d-flex justify-center align-center"
+              style="height: 600px"
+            >
+              <div
+                v-html="content"
+                class="white--text font-weight-medium"
+              ></div>
+            </div>
           </v-col>
         </v-row>
       </v-container>
@@ -38,11 +44,21 @@ export default {
     bg() {
       return bg
     },
+    inProgress() {
+      return this.$store.state.inProgress
+    },
     content() {
-      if (this.$route.path === '/auth/forgetPassword') {
-        return 'Forgot <br />Password?'
+      if (this.inProgress) {
+        return '<h1 class="text-h1">Awesome!</h1><h2 text-h2" style="font-size: 2rem">Your Account is being created</h2><p>One last step.</p>'
       }
-      return 'welcome <br />Back'
+      switch (this.$route.path) {
+        case '/auth/forgetPassword':
+          return '<h2 class="text-h1 white--text font-weight-medium">Forgot <br />Password?</h2>'
+        case '/auth/signup':
+          return '<h2 class="text-h1 white--text font-weight-medium">Get <br />Started!</h2>'
+        default:
+          return '<h2 class="text-h1 white--text font-weight-medium">Welcome <br />Back</h2>'
+      }
     },
   },
 }
@@ -51,7 +67,8 @@ export default {
 a {
   text-decoration: none;
 }
-.hero-image {
+.hero-image,
+.mdi-n-flag {
   /*  */
   /* The image used */
   font-weight: 800;
