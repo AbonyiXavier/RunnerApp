@@ -1,6 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
+  ssr: false,
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     titleTemplate: '%s - onerunner-admin-frontend',
@@ -59,19 +60,18 @@ export default {
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  
 
-build: {
-     extend(config, ctx) {
-       config.module.rules.push({
-         enforce: 'pre',
-         test: /\.(js|vue)$/,
-         loader: 'eslint-loader',
-         exclude: /(node_modules)/,
-         options: {
-           fix: true
-         }
-       })
-   }
- }
+  build: {
+    extend(config, ctx) {
+      config.module.rules.push({
+        enforce: 'pre',
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        exclude: /(node_modules)/,
+        options: {
+          fix: true,
+        },
+      })
+    },
+  },
 }
