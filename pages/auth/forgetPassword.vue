@@ -18,36 +18,79 @@
         <br />
         to reset your password
       </p>
-
-      <v-form v-if="!isSent">
-        <div>
-          <label for="email">Email</label>
-          <v-text-field
-            v-model="first"
-            outlined
-            placeholder="example@company.com"
-          ></v-text-field>
-        </div>
-        <v-btn color="primary" large type="submit" block>Login</v-btn>
-        <p class="ma-0 mt-5">
-          Remember your password?
-          <nuxt-link class="forget-password" to="/auth/login">
-            Log in
-          </nuxt-link>
-        </p>
-      </v-form>
+      <ValidationObserver ref="forgetPasswordForm">
+        <v-form v-if="!isSent" @submit.prevent="onSubmit">
+          <div class="mb-5">
+            <ValidationProvider
+              v-slot="{ errors }"
+              name="Email"
+              rules="required|email"
+            >
+              <label for="email">Email</label>
+              <v-text-field
+                v-model="email"
+                hide-details
+                type="email"
+                outlined
+                placeholder="example@company.com"
+              ></v-text-field>
+              <small class="red--text">{{ errors[0] }}</small>
+            </ValidationProvider>
+          </div>
+          <v-btn
+            color="primary"
+            large
+            type="submit"
+            class="text-capitalize"
+            block
+            >Reset Password</v-btn
+          >
+          <p class="ma-0 mt-5">
+            Remember your password?
+            <nuxt-link class="forget-password" to="/auth/login">
+              Log in
+            </nuxt-link>
+          </p>
+        </v-form>
+      </ValidationObserver>
     </div>
   </v-col>
 </template>
 
 <script>
+import { ValidationObserver, ValidationProvider } from 'vee-validate'
 export default {
   layout: 'auth',
+  components: {
+    ValidationObserver,
+    ValidationProvider,
+  },
   data() {
     return {
-      first: '',
+      email: '',
       isSent: false,
     }
+  },
+  methods: {
+    onSubmit() {
+      this.$refs.forgetPasswordForm.validate().then((success) => {
+        if (!success) {
+          return
+        }
+
+        console.log('Form has been submitted!')
+        // this.awaitVerify = true
+        // this.$store.commit('IN_PROGRESS_ACTIVE')
+        this.isSent = true
+        // Resetting Values
+        this.email = ''
+
+        // Wait until the models are updated in the UI
+        // this.$nextTick(() => {
+        this.$refs.forgetPasswordForm.reset()
+        // })
+      })
+    },
   },
 }
 </script>

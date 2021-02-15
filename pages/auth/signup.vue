@@ -1,5 +1,5 @@
 <template>
-  <v-col sm="8">
+  <v-col sm="8" class="pb-16">
     <template v-if="!awaitVerify">
       <h3 class="text-h3 mt-16 mb-5" style="font-weight: 400">
         Create an Account
@@ -78,11 +78,12 @@
             <ValidationProvider
               v-slot="{ errors }"
               name="work email"
-              rules="required"
+              rules="required|email"
             >
               <label for="workEmail">Work Email Address</label>
               <v-text-field
                 v-model="workEmail"
+                type="email"
                 placeholder="example@company.com"
                 outlined
                 hide-details
@@ -126,7 +127,7 @@
       <h3 class="text-h3 mt-16 mb-5" style="font-weight: 400">Verification</h3>
       <p>A verification code has been sent to your email</p>
       <div style="position: relative; height: 76px" class="mb-3">
-        <PincodeInput v-model="code" :length="length" placeholder="0" />
+        <PincodeInput v-model="code" :length="length" />
         <img
           v-if="toVerify"
           :src="pinImg"
@@ -157,12 +158,12 @@
             <ValidationProvider
               v-slot="{ errors }"
               name="password"
-              rules="required"
+              rules="required|min:6"
             >
               <label for="password">Password</label>
               <v-text-field
                 v-model="password"
-                placeholder="•••••••••••••••••"
+                placeholder="Password"
                 outlined
                 hide-details
                 :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -181,7 +182,7 @@
               <label for="confirmPassword">Confirm Password</label>
               <v-text-field
                 v-model="confirmPassword"
-                placeholder="•••••••••••••••••"
+                placeholder="Confirm Password"
                 outlined
                 hide-details
                 :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -311,7 +312,7 @@ input.vue-pincode-input {
   padding: 10px 16px;
   max-width: 60px;
   font-size: 2rem;
-  border: 1px solid;
+  border: 1px solid #b7bdcd;
   box-shadow: none;
 }
 input.vue-pincode-input:focus {
