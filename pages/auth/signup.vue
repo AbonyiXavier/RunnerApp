@@ -163,7 +163,7 @@
               <label for="password">Password</label>
               <v-text-field
                 v-model="password"
-                placeholder="•••••••••••••••••"
+                placeholder="Password"
                 outlined
                 hide-details
                 :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -182,7 +182,7 @@
               <label for="confirmPassword">Confirm Password</label>
               <v-text-field
                 v-model="confirmPassword"
-                placeholder="•••••••••••••••••"
+                placeholder="Confirm Password"
                 outlined
                 hide-details
                 :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
